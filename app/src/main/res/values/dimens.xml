@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_290cdp">@dimen/_223sdp</dimen>
+    <dimen name="_250cdp">@dimen/_193sdp</dimen>
+    <dimen name="_64cdp">@dimen/_49sdp</dimen>
+    <dimen name="_60cdp">@dimen/_47sdp</dimen>
+    <dimen name="_50cdp">@dimen/_39sdp</dimen>
+    <dimen name="_40cdp">@dimen/_31sdp</dimen>
+    <dimen name="_32cdp">@dimen/_25sdp</dimen>
+    <dimen name="_24cdp">@dimen/_19sdp</dimen>
+    <dimen name="_20cdp">@dimen/_16sdp</dimen>
+    <dimen name="_16cdp">@dimen/_12sdp</dimen>
+    <dimen name="_12cdp">@dimen/_9sdp</dimen>
+    <dimen name="_10cdp">@dimen/_8sdp</dimen>
+    <dimen name="_8cdp">@dimen/_6sdp</dimen>
+</resources>

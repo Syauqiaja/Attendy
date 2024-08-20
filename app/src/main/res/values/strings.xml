@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Attendy</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="password">Password</string>
+    <string name="login_with_google">Login with google</string>
+    <string name="or">or</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="don_t_have_any_account">Don\'t have any account?</string>
+    <string name="register">Register</string>
+</resources>
