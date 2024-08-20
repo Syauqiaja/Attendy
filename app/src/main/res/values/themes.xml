@@ -17,8 +17,8 @@
     </style>
     <style name="Theme.CustomSplashScreenTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_attendy</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item> <!-- Required -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item> <!-- Required -->
         <item name="postSplashScreenTheme">@style/Base.Theme.Attendy</item>
     </style>
     <style name="Theme.Attendy" parent="Base.Theme.Attendy" />

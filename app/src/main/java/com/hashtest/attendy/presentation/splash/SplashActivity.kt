@@ -1,11 +1,13 @@
 package com.hashtest.attendy.presentation.splash
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.hashtest.attendy.R
+import com.hashtest.attendy.presentation.auth.AuthActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -16,6 +18,11 @@ class SplashActivity : AppCompatActivity() {
             viewModel.isLoading.observe(this@SplashActivity){ isLoading ->
                 setKeepOnScreenCondition(){
                     return@setKeepOnScreenCondition !isLoading
+                }
+                setOnExitAnimationListener{
+                    val intent = Intent(this@SplashActivity, AuthActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

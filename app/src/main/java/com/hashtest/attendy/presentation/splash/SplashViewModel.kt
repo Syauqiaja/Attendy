@@ -14,7 +14,7 @@ class SplashViewModel:ViewModel() {
     init {
         viewModelScope.launch {
             _isLoading.value = false
-            delay(2000)
+            delay(1500)
             _isLoading.value = true
         }
     }
