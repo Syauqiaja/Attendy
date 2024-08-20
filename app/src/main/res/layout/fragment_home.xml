@@ -113,7 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check in due:"
+                    android:text="@string/check_in_due"
                     android:textAppearance="@style/AppTheme.TextAppearance.Body.S"
                     android:textColor="?attr/colorOnPrimary"/>
                 <TextView
@@ -132,7 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check out starts:"
+                    android:text="@string/check_out_starts"
                     android:textAppearance="@style/AppTheme.TextAppearance.Body.S"
                     android:textColor="?attr/colorOnPrimary"/>
                 <TextView

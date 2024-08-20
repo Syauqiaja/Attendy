@@ -1,22 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="@dimen/_8sdp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_marginVertical="8dp">
-    <TextView
-        android:id="@+id/tv_location_name"
+    app:strokeWidth="0dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem[4]"
-        android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+        android:orientation="vertical"
+        android:padding="@dimen/_12sdp">
+        <TextView
+            android:id="@+id/tv_location_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[4]"
+            android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+        <TextView
+            android:id="@+id/tv_location_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem[4]"
+            android:textAppearance="@style/AppTheme.TextAppearance.Body.M"
+            android:textColor="@color/grey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_12cdp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_in_due"
+                    android:textColor="@color/grey"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
 
-    <TextView
-        android:id="@+id/tv_location_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="@tools:sample/lorem[4]"
-        android:textAppearance="@style/AppTheme.TextAppearance.Body.M"
-        android:textColor="@color/grey"/>
-</LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="06:00 AM"
+                    android:textColor="@color/primary"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="0dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_out_starts"
+                    android:textColor="@color/grey"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="06:00 AM"
+                    android:textColor="@color/primary"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
