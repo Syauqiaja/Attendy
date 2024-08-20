@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.aglotest.algolist.utils.safeNavigate
 import com.hashtest.attendy.R
 import com.hashtest.attendy.databinding.FragmentLoginBinding
 import com.hashtest.attendy.presentation.base.BaseFragment
@@ -16,5 +18,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
     override val viewModel: LoginViewModel by viewModels()
 
     override fun initView() {
+        binding.apply {
+            btnRegister.setOnClickListener {
+                findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            }
+        }
     }
 }

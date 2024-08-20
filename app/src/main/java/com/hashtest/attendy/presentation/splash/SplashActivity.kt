@@ -15,17 +15,18 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
-            viewModel.isLoading.observe(this@SplashActivity){ isLoading ->
-                setKeepOnScreenCondition(){
-                    return@setKeepOnScreenCondition !isLoading
-                }
-                setOnExitAnimationListener{
-                    val intent = Intent(this@SplashActivity, AuthActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+            setKeepOnScreenCondition{
+                true
             }
         }
         setContentView(R.layout.activity_splash)
+
+        viewModel.isLoading.observe(this@SplashActivity){ isLoading ->
+            if(!isLoading){
+                val intent = Intent(this@SplashActivity, AuthActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 }

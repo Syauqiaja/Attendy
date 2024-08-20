@@ -16,9 +16,10 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
     <style name="Theme.CustomSplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="android:windowBackground">@color/white</item>
         <item name="windowSplashScreenBackground">@color/primary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
-        <item name="windowSplashScreenAnimationDuration">2000</item> <!-- Required -->
+        <item name="windowSplashScreenAnimationDuration">700</item> <!-- Required -->
         <item name="postSplashScreenTheme">@style/Base.Theme.Attendy</item>
     </style>
     <style name="Theme.Attendy" parent="Base.Theme.Attendy" />
