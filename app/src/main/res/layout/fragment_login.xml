@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login"
-            android:layout_marginTop="@dimen/_40cdp"/>
+            android:layout_marginTop="@dimen/_32cdp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/or"
                 android:layout_marginHorizontal="@dimen/_16cdp"
-                android:layout_marginVertical="@dimen/_4sdp"/>
+                android:layout_marginVertical="@dimen/_2sdp"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
@@ -121,6 +121,7 @@
             android:includeFontPadding="false"
             android:layout_gravity="center_horizontal"/>
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register"
