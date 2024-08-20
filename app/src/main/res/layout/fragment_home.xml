@@ -95,10 +95,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saturday, 24 February 2024"
+            android:text="Lapangan Sasana Krida"
             android:textAppearance="@style/AppTheme.TextAppearance.Body.L"
             android:textColor="?attr/colorOnPrimary"
-            android:layout_marginTop="@dimen/_24cdp"/>
+            android:layout_marginTop="@dimen/_24cdp"
+            app:drawableStartCompat="@drawable/ic_office"
+            android:drawablePadding="@dimen/_4sdp" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,6 +142,23 @@
                     android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"
                     android:textColor="?attr/colorOnPrimary"/>
             </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_change_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:text="@string/change_location"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:layout_gravity="bottom"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/white"
+                app:cornerRadius="0dp"
+                app:strokeColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
     <androidx.constraintlayout.widget.Guideline
