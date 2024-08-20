@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.hashtest.attendy.R
 import com.hashtest.attendy.presentation.auth.AuthActivity
+import com.hashtest.attendy.presentation.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
 
         viewModel.isLoading.observe(this@SplashActivity){ isLoading ->
             if(!isLoading){
-                val intent = Intent(this@SplashActivity, AuthActivity::class.java)
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,7 +7,16 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
+
+val localProperties = Properties()
+val gradlePropertiesFile: File = rootProject.file("local.properties")
+if(gradlePropertiesFile.exists()){
+    gradlePropertiesFile.inputStream().use { localProperties.load(it) }
+}
+
 
 android {
     namespace = "com.hashtest.attendy"
@@ -17,6 +28,10 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = "${localProperties["GOOGLE_MAPS_API_KEY"]}"
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -80,4 +95,34 @@ dependencies {
 
     // Lottie
     implementation("com.airbnb.android:lottie:6.5.0")
+
+//    Swipe Button
+    implementation("com.ncorti:slidetoact:0.11.0")
+
+//  Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.google.android.gms:play-services-maps:19.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.libraries.places:places:3.5.0")
+    implementation("com.google.firebase:firebase-firestore")
+
+}
+
+secrets {
+    // To add your Maps API key to this project:
+    // 1. If the secrets.properties file does not exist, create it in the same folder as the local.properties file.
+    // 2. Add this line, where YOUR_API_KEY is your API key:
+    //        MAPS_API_KEY=YOUR_API_KEY
+    propertiesFileName = "secrets.properties"
+
+    // A properties file containing default secret values. This file can be
+    // checked in version control.
+    defaultPropertiesFileName = "local.defaults.properties"
+
+    // Configure which keys should be ignored by the plugin by providing regular expressions.
+    // "sdk.dir" is ignored by default.
+    ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+    ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
 }

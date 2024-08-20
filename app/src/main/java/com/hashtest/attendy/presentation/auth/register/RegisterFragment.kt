@@ -19,7 +19,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
 
     override fun initView() {
         binding.apply {
-            findNavController().safeNavigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+            btnLogin.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 }

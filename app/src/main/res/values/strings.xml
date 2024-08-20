@@ -23,4 +23,13 @@
     <string name="full_name_required">Full Name<font color="#F04770">*</font></string>
     <string name="password_confirmation">Password Confirmation</string>
     <string name="registration_form">Registration Form</string>
+    <string name="good_morning">Good Morning!</string>
+    <string name="performance">Performance</string>
+    <string name="do_attendance">Do Attendance</string>
+    <string name="attendance_history">Attendance History</string>
+    <string name="see_all"><![CDATA[See all >>]]></string>
+    <string name="punch_in">Punch In</string>
+    <string name="location">Location</string>
+    <string name="punch_out">Punch Out</string>
+    <string name="select_location">Select Location</string>
 </resources>

@@ -2,7 +2,12 @@ package com.aglotest.algolist.utils
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.graphics.Color
 import android.view.View
+import android.view.WindowManager
+import androidx.annotation.ColorInt
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -95,4 +100,25 @@ fun View.scaleViewOneShot(scale: Float, duration: Long) {
     animator.repeatMode = ValueAnimator.REVERSE
     animator.repeatCount = 1
     animator.start()
+}
+
+
+
+//      Setup status bar color to white
+fun Activity.changeStatusBarToLight(){
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = getColor(R.color.white)
+    WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = true
+}
+
+fun Activity.changeStatusBarTo(@ColorInt color: Int, isLight: Boolean){
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = color
+    WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = isLight
+}
+
+fun Activity.changeStatusBarToDark(){
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = Color.BLACK
+    WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
 }

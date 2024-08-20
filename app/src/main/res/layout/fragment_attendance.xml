@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.main.attendance.AttendanceFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="@string/do_attendance"
+        android:titleTextAppearance="@style/AppTheme.TextAppearance.Body.XL"
+        android:navigationIcon="@drawable/ic_back_arrow"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/maps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        map:layout_constraintBottom_toTopOf="@id/tv_location_title"
+        android:layout_marginBottom="@dimen/_24cdp"
+        android:background="@color/white_2"
+        map:cameraBearing="112.5"
+        map:cameraTargetLat="-33.796923"
+        map:cameraTargetLng="150.922433"
+        map:cameraZoom="13"
+        map:mapType="normal"
+        map:uiCompass="false"
+        map:uiRotateGestures="false"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="false"
+        map:uiZoomControls="false"
+        map:uiZoomGestures="true"/>
+
+    <TextView
+        android:id="@+id/tv_location_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        map:layout_constraintBottom_toTopOf="@id/tv_location"
+        android:layout_marginHorizontal="@dimen/_24cdp"
+        android:textAppearance="@style/AppTheme.TextAppearance.Body.XL.SemiBold"/>
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        map:layout_constraintBottom_toTopOf="@id/layout_punches"
+        android:layout_marginBottom="@dimen/_16cdp"
+        map:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="@dimen/_24cdp"
+        android:textAppearance="@style/AppTheme.TextAppearance.Body.M"
+        android:textColor="@color/grey"
+        tools:text="@tools:sample/lorem[10]"/>
+
+    <LinearLayout
+        android:id="@+id/layout_punches"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_24cdp"
+        map:layout_constraintBottom_toTopOf="@id/slide_button"
+        android:layout_marginHorizontal="@dimen/_24cdp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/punch_in"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NOW"
+                android:textColor="@color/primary"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/_24cdp"
+            android:layout_height="0dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/punch_out"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.ncorti.slidetoact.SlideToActView
+        android:id="@+id/slide_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        map:layout_constraintBottom_toBottomOf="parent"
+        app:text="Swipe To Punch In"
+        app:outer_color="@color/primary"
+        app:inner_color="@color/white"
+        app:slider_icon="@drawable/ic_check"
+        app:icon_margin="5dp"
+        app:text_appearance="@style/AppTheme.TextAppearance.Body.L.Medium.White"
+        app:border_radius = "8dp"
+        app:slider_height="@dimen/_50sdp"
+        android:layout_marginHorizontal="@dimen/_32cdp"
+        android:layout_marginBottom="@dimen/_32sdp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

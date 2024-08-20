@@ -58,6 +58,9 @@
     <style name="AppTheme.TextAppearance.Body.L.Medium" parent="AppTheme.TextAppearance.Body.L">
         <item name="fontFamily">@font/poppins_medium</item>
     </style>
+    <style name="AppTheme.TextAppearance.Body.L.Medium.White" parent="AppTheme.TextAppearance.Body.L.Medium">
+        <item name="android:textColor">@color/white</item>
+    </style>
     <style name="AppTheme.TextAppearance.Body.L.SemiBold" parent="AppTheme.TextAppearance.Body.L">
         <item name="fontFamily">@font/poppins_semibold</item>
     </style>

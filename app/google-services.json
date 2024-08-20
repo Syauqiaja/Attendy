@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "423485040455",
+    "project_id": "attendy-2c2ff",
+    "storage_bucket": "attendy-2c2ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423485040455:android:f63d67466ef411b1c30e62",
+        "android_client_info": {
+          "package_name": "com.hashtest.attendy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423485040455-rdqkl37ud5m2nfs8c92k2s5cku1ukmfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hashtest.attendy",
+            "certificate_hash": "540315d963c4b931393ff4ea4527800b9f670918"
+          }
+        },
+        {
+          "client_id": "423485040455-8gfvvcdjvgj8t58rfko9pntriqmp81op.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOCmTUFMVlXCWY56YmntAQZDVX8Hw4YyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423485040455-8gfvvcdjvgj8t58rfko9pntriqmp81op.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
