@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aglotest.algolist.utils.safeNavigate
+import com.aglotest.algolist.utils.showCustomSnackBar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.userProfileChangeRequest
@@ -46,8 +47,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
     }
 
     private fun createAuthUser() {
-        auth.createUserWithEmailAndPassword(binding.edtEmail.text.toString(), binding.edtPassword.text.toString()).addOnCompleteListener {task ->
-            if(task.isSuccessful){
+        auth.createUserWithEmailAndPassword(binding.edtEmail.text.toString(), binding.edtPassword.text.toString()).addOnCompleteListener {registerResult ->
+            if(registerResult.isSuccessful){
                 val profileUpdates = userProfileChangeRequest {
                     displayName = binding.edtName.text.toString()
                 }
@@ -57,8 +58,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
                             val intent = Intent(requireActivity(), MainActivity::class.java)
                             requireActivity().startActivity(intent)
                             requireActivity().finish()
+                        }else{
+                            registerResult.result.user!!.delete()
+                            auth.signOut()
+                            requireContext().showCustomSnackBar(task.exception?.message ?: "Failed to register", binding.root)
                         }
                     }
+            }else{
+                requireContext().showCustomSnackBar(registerResult.exception?.message ?: "Failed to register", binding.root)
             }
         }
     }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.firebase.auth.FirebaseAuth
 import com.hashtest.attendy.R
 import com.hashtest.attendy.presentation.auth.AuthActivity
 import com.hashtest.attendy.presentation.main.MainActivity
@@ -13,6 +14,7 @@ import com.hashtest.attendy.presentation.main.MainActivity
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private val viewModel: SplashViewModel by viewModels()
+    private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
@@ -24,7 +26,11 @@ class SplashActivity : AppCompatActivity() {
 
         viewModel.isLoading.observe(this@SplashActivity){ isLoading ->
             if(!isLoading){
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                val intent = if(auth.currentUser != null) { //Is user logged in
+                    Intent(this@SplashActivity, MainActivity::class.java)
+                }else{
+                    Intent(this@SplashActivity, AuthActivity::class.java)
+                }
                 startActivity(intent)
                 finish()
             }

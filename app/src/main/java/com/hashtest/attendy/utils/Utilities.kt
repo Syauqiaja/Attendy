@@ -3,8 +3,10 @@ package com.aglotest.algolist.utils
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.core.view.WindowCompat
@@ -13,7 +15,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.hashtest.attendy.R
+import com.hashtest.attendy.databinding.SnackbarDefaultBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -100,6 +104,21 @@ fun View.scaleViewOneShot(scale: Float, duration: Long) {
     animator.repeatMode = ValueAnimator.REVERSE
     animator.repeatCount = 1
     animator.start()
+}
+
+fun Context.showCustomSnackBar(message: String, container: View?) {
+    container?.let {
+        val snackView = View.inflate(this, R.layout.snackbar_default, null)
+        val binding = SnackbarDefaultBinding.bind(snackView)
+        val snackBar = Snackbar.make(container, "", Snackbar.LENGTH_LONG)
+        snackBar.apply {
+            (view as ViewGroup).addView(binding.root)
+            binding.toastText.text = message
+            duration = Snackbar.LENGTH_SHORT
+            setBackgroundTint(getColor(R.color.white))
+            show()
+        }
+    }
 }
 
 

@@ -11,6 +11,7 @@ import com.aglotest.algolist.utils.changeStatusBarTo
 import com.aglotest.algolist.utils.safeNavigate
 import com.aglotest.algolist.utils.scaleViewOneShot
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.hashtest.attendy.R
 import com.hashtest.attendy.databinding.FragmentHomeBinding
@@ -25,12 +26,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 ) {
     override val viewModel: HomeViewModel by viewModels()
     private val db = Firebase.firestore
+    private val auth = Firebase.auth
 
     override fun initView() {
         requireActivity().changeStatusBarTo(resources.getColor(R.color.primary, null), false)
 
         binding.apply {
-            tvName.text = "Ahmad Fajruddin Syauqi"
+            tvName.text = auth.currentUser!!.displayName
             fabDoAttendance.setOnClickListener {
                 fabDoAttendance.scaleViewOneShot(0.95f, 75) //Add click effect
                 val dialog = BottomSheetSelectLocation()
