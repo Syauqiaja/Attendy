@@ -36,4 +36,7 @@
     <string name="minimum_password_is_8_characters">Minimum password is 8 characters</string>
     <string name="please_fill_this_field">Please fill this field</string>
     <string name="password_doesn_t_match">Password doesn\'t match</string>
+    <string name="logout">Logout</string>
+    <string name="are_you_sure_want_to_logout">Are you sure want to logout?</string>
+    <string name="cancel">Cancel</string>
 </resources>

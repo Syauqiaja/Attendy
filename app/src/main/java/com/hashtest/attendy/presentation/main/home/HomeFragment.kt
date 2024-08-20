@@ -41,6 +41,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 //                    HomeFragmentDirections.actionHomeFragmentToAttendanceFragment()
 //                )
             }
+            btnProfile.setOnClickListener {
+                findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
+            }
         }
     }
 }

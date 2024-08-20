@@ -43,6 +43,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.Material3.Button.IconButton.Outlined"
