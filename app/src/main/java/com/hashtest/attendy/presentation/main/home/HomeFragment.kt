@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aglotest.algolist.utils.changeStatusBarTo
 import com.aglotest.algolist.utils.clearNavigationResult
 import com.aglotest.algolist.utils.getNavigationResult
@@ -22,6 +23,7 @@ import com.hashtest.attendy.R
 import com.hashtest.attendy.databinding.FragmentHomeBinding
 import com.hashtest.attendy.domain.models.LocationPlace
 import com.hashtest.attendy.domain.models.User
+import com.hashtest.attendy.presentation.adapters.AttendanceListAdapter
 import com.hashtest.attendy.presentation.base.BaseFragment
 import com.hashtest.attendy.presentation.main.dialogs.BottomSheetSelectLocation
 import com.hashtest.attendy.presentation.main.dialogs.DialogSuccess
@@ -56,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
             }
 
+            //Observe user location
             viewModel.userLocation.observe(viewLifecycleOwner){userLocation->
                 if(userLocation != null){
                     setHeaderWithLocation(userLocation)
@@ -73,6 +76,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
                 }
             }
             viewModel.getUserLocation()
+
+            //Observe attendances
+            viewModel.attendances.observe(viewLifecycleOwner){attendances ->
+                if(!attendances.isNullOrEmpty()){
+                    rvAttendances.layoutManager = LinearLayoutManager(requireContext())
+                    rvAttendances.adapter = AttendanceListAdapter(attendances.toMutableList())
+                }
+            }
+            viewModel.getAllAttendances()
 
             getNavigationResult<Boolean>("attendance")?.observe(viewLifecycleOwner){
                 if(it == true){

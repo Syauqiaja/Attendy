@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.aglotest.algolist.utils.convertTimeMillisToTimeFormat
 import com.aglotest.algolist.utils.setNavigationResult
 import com.aglotest.algolist.utils.showCustomSnackBar
 import com.google.android.gms.location.LocationCallback
@@ -96,13 +97,6 @@ class AttendanceFragment : BaseFragment<FragmentAttendanceBinding, AttendanceVie
             }
         }
     }
-
-    fun convertTimeMillisToTimeFormat(timeMillis: Long): String {
-        val date = Date(timeMillis)
-        val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        return format.format(date)
-    }
-
     private fun addOfficeMarker() {
         val latLng = LatLng(locationPlace.latitude, locationPlace.longitude)
         officeMarker = mGoogleMap.addMarker(

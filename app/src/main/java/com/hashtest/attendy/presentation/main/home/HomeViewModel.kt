@@ -9,6 +9,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import com.hashtest.attendy.domain.models.Attendance
 import com.hashtest.attendy.domain.models.LocationPlace
 import com.hashtest.attendy.domain.models.User
 import timber.log.Timber
@@ -19,6 +20,24 @@ class HomeViewModel:ViewModel() {
 
     val userLocation : LiveData<LocationPlace?> get() = _userLocation
     private val _userLocation = MutableLiveData<LocationPlace?>()
+
+    val attendances: LiveData<List<Attendance>> get() = _attendances
+    private val _attendances = MutableLiveData<List<Attendance>>()
+
+    fun getAllAttendances(){
+        db.collection("attendances")
+            .whereEqualTo("userRef", auth.currentUser!!.uid)
+            .limit(5)
+            .get()
+            .addOnSuccessListener { querySnap ->
+                val listAttendance = querySnap.documents.map {
+                    it.toObject<Attendance>()!!
+                }
+                _attendances.value = listAttendance
+            }.addOnFailureListener {
+                _attendances.value = listOf()
+            }
+    }
 
     fun getUserLocation(){
         db.collection("users")

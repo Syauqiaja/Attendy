@@ -156,3 +156,9 @@ fun minutesToTime(minutes: Int): String {
     val format = SimpleDateFormat("h:mm a", Locale.US)
     return format.format(calendar.time)
 }
+
+fun convertTimeMillisToTimeFormat(timeMillis: Long): String {
+    val date = Date(timeMillis)
+    val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    return format.format(date)
+}

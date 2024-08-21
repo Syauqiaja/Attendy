@@ -55,6 +55,7 @@
             android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
 
         <TextView
+            android:id="@+id/tv_punch_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="06:00 AM"
@@ -78,6 +79,7 @@
             android:textAppearance="@style/AppTheme.TextAppearance.Body.M.Medium"/>
 
         <TextView
+            android:id="@+id/tv_punch_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="06:00 AM"
