@@ -7,13 +7,9 @@ import android.location.Geocoder
 import android.location.Location
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
@@ -39,7 +35,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.hashtest.attendy.R
-import com.hashtest.attendy.databinding.BottomSheetTimePickerBinding
 import com.hashtest.attendy.databinding.FragmentCreateLocationBinding
 import com.hashtest.attendy.domain.models.LocationPlace
 import com.hashtest.attendy.presentation.base.BaseFragment
@@ -52,7 +47,6 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     FragmentCreateLocationBinding::inflate
 ), OnMapReadyCallback {
     override val viewModel: CreateLocationViewModel by viewModels()
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mGoogleMap : GoogleMap
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var supportMapFragment: SupportMapFragment
@@ -134,23 +128,6 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
         return true
     }
 
-    private fun getCurrentLocation() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        if(!checkPermission()) return
-
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location ->
-                if (location != null) {
-                    Timber.tag("CreateLocationFragment").d("${location.latitude}, ${location.longitude}")
-                } else {
-                    Timber.tag("CreateLocationFragment").e("Location is null")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Timber.tag("CreateLocationFragment").e(exception, "Failed to get location")
-            }
-    }
-
     private fun checkPermission():Boolean{
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -160,7 +137,7 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            notificationPermissionLauncher.launch(arrayOf(
+            locationPermissionLauncher.launch(arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ))
@@ -191,7 +168,6 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
 
     private fun registerLocationListener() {
         binding.progressBar.visibility = View.VISIBLE
-
         // initialize location callback object
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -207,16 +183,11 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     }
 
     private fun onLocationChanged(location: Location) {
-        // create message for toast with updated latitude and longitudefa
-        var msg = "Updated Location: " + location.latitude  + " , " +location.longitude
-
-        // show toast message with updated location
-        //Toast.makeText(this,msg, Toast.LENGTH_LONG).show()
-        val location = LatLng(location.latitude, location.longitude)
+        val latLng = LatLng(location.latitude, location.longitude)
 
         mGoogleMap.clear()
-        updateMarker(location)
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        updateMarker(latLng)
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
 
         mGoogleMap.setOnMapClickListener { latlng ->
             if(!binding.btnLock.isChecked){
@@ -244,21 +215,21 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     }
 
 
-    private val notificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+    private val locationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         result.forEach { (keys, isGranted) ->
             when(keys){
                 Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION ->{
                     if (!isGranted) {
                         if (Build.VERSION.SDK_INT >= 33) {
                             if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                                showNotificationPermissionRationale("Izin lokasi diperlukan, untuk menampilkan lokasi", arrayOf(
+                                showNotificationPermissionRationale("Location permission is needed", arrayOf(
                                     Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION))
                             } else {
-                                showSettingDialog("Location Permission", "Diperlukan izin lokasi, Harap izinkan izin lokasi dari pengaturan")
+                                showSettingDialog("Location Permission", "Location permission is needed, Please grant a permission")
                             }
                         }
                     }else{
-                        getCurrentLocation()
+                        registerLocationListener()
                     }
                 }
             }
@@ -274,20 +245,20 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
                 intent.data = Uri.parse("package:${requireContext().packageName}")
                 startActivity(intent)
             }
-            .setNegativeButton("Batalkan", null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 
     private fun showNotificationPermissionRationale(message: String, permissions: Array<String>) {
         MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.MaterialAlertDialog_Material3)
-            .setTitle("Peringatan")
+            .setTitle("Warning")
             .setMessage(message)
             .setPositiveButton("Ok") { _, _ ->
                 if (Build.VERSION.SDK_INT >= 33) {
-                    notificationPermissionLauncher.launch(permissions)
+                    locationPermissionLauncher.launch(permissions)
                 }
             }
-            .setNegativeButton("Batalkan", null)
+            .setNegativeButton("Cancel", null)
             .show()
     }
 

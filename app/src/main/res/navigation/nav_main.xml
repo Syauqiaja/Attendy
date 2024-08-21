@@ -24,7 +24,11 @@
         android:id="@+id/attendanceFragment"
         android:name="com.hashtest.attendy.presentation.main.attendance.AttendanceFragment"
         android:label="fragment_attendance"
-        tools:layout="@layout/fragment_attendance" />
+        tools:layout="@layout/fragment_attendance" >
+        <argument
+            android:name="locationPlace"
+            app:argType="com.hashtest.attendy.domain.models.LocationPlace" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.hashtest.attendy.presentation.main.profile.ProfileFragment"

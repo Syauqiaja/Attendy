@@ -56,4 +56,7 @@
     <string name="save_location">Save Location</string>
     <string name="failed_to_add_new_location">Failed to add new location</string>
     <string name="no_location_selected">No location selected!</string>
+    <string name="attendance_failed">Attendance Failed</string>
+    <string name="attendance_success">Attendance Success</string>
+    <string name="swipe_to_punch_in">Swipe To Punch In</string>
 </resources>

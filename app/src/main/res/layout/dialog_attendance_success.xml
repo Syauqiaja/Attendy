@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/_24cdp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/lottie_success"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/attendance_success"
+        android:textAppearance="@style/AppTheme.TextAppearance.Heading5.SemiBold"
+        android:textColor="@color/state_positive_60"
+        android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/AppTheme.TextAppearance.Body.M"
+        android:textColor="@color/black"
+        tools:text="@tools:sample/lorem[10]"
+        android:textAlignment="center"/>
+
+</LinearLayout>

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aglotest.algolist.utils.changeStatusBarTo
+import com.aglotest.algolist.utils.clearNavigationResult
+import com.aglotest.algolist.utils.getNavigationResult
 import com.aglotest.algolist.utils.minutesToTime
 import com.aglotest.algolist.utils.safeNavigate
 import com.aglotest.algolist.utils.scaleViewOneShot
@@ -22,6 +24,7 @@ import com.hashtest.attendy.domain.models.LocationPlace
 import com.hashtest.attendy.domain.models.User
 import com.hashtest.attendy.presentation.base.BaseFragment
 import com.hashtest.attendy.presentation.main.dialogs.BottomSheetSelectLocation
+import com.hashtest.attendy.presentation.main.dialogs.DialogSuccess
 import timber.log.Timber
 
 
@@ -37,12 +40,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
 
         binding.apply {
             tvName.text = auth.currentUser!!.displayName
-            fabDoAttendance.setOnClickListener {
-                fabDoAttendance.scaleViewOneShot(0.95f, 75) //Add click effect
-                findNavController().safeNavigate(
-                    HomeFragmentDirections.actionHomeFragmentToAttendanceFragment()
-                )
-            }
+            fabDoAttendance.isEnabled = false
+
             btnChangeLocation.setOnClickListener {
                 findNavController().safeNavigate(
                     HomeFragmentDirections.actionHomeFragmentToSelectLocationFragment()
@@ -60,11 +59,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             viewModel.userLocation.observe(viewLifecycleOwner){userLocation->
                 if(userLocation != null){
                     setHeaderWithLocation(userLocation)
+
+                    fabDoAttendance.setOnClickListener {
+                        fabDoAttendance.scaleViewOneShot(0.95f, 75) //Add click effect
+                        findNavController().safeNavigate(
+                            HomeFragmentDirections.actionHomeFragmentToAttendanceFragment(userLocation)
+                        )
+                    }
+                    fabDoAttendance.isEnabled = true
                 }else{
+                    fabDoAttendance.isEnabled = false
                     setNoLocation()
                 }
             }
             viewModel.getUserLocation()
+
+            getNavigationResult<Boolean>("attendance")?.observe(viewLifecycleOwner){
+                if(it == true){
+                    val dialog = DialogSuccess()
+                    dialog.show(childFragmentManager, "Dialog attendance success")
+                }
+                clearNavigationResult<Boolean>("attendance")
+            }
         }
     }
 
