@@ -8,8 +8,8 @@ import com.aglotest.algolist.utils.scaleViewOneShot
 import com.hashtest.attendy.databinding.ItemLocationBinding
 import com.hashtest.attendy.domain.models.LocationPlace
 
-class CheckableLocationAdapter(private val listItem: MutableList<LocationPlace>): RecyclerView.Adapter<CheckableLocationAdapter.ViewHolder>() {
-    var onItemClick: ((LocationPlace)->Unit)? = null
+class CheckableLocationAdapter(private val listItem: MutableMap<LocationPlace, String>): RecyclerView.Adapter<CheckableLocationAdapter.ViewHolder>() {
+    var onItemClick: ((String)->Unit)? = null
     inner class ViewHolder(private val binding: ItemLocationBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LocationPlace){
             binding.apply {
@@ -21,7 +21,7 @@ class CheckableLocationAdapter(private val listItem: MutableList<LocationPlace>)
 
                 root.setOnClickListener {
                     root.scaleViewOneShot(0.95f, 100)
-                    onItemClick?.invoke(data)
+                    onItemClick?.invoke(listItem[data]!!)
                 }
             }
         }
@@ -37,6 +37,6 @@ class CheckableLocationAdapter(private val listItem: MutableList<LocationPlace>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(listItem[position])
+        holder.bind(listItem.keys.elementAt(position))
     }
 }

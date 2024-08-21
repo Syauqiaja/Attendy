@@ -5,7 +5,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aglotest.algolist.utils.safeNavigate
+import com.aglotest.algolist.utils.showCustomSnackBar
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.hashtest.attendy.databinding.FragmentSelectLocationBinding
@@ -21,7 +23,8 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
 ) {
     override val viewModel: SelectLocationViewModel by viewModels()
     private val db = Firebase.firestore
-    private val itemList = mutableListOf<LocationPlace>()
+    private val auth = FirebaseAuth.getInstance()
+    private val itemList = mutableMapOf<LocationPlace, String>()
     private lateinit var checkableLocationAdapter: CheckableLocationAdapter
 
     override fun initView() {
@@ -35,23 +38,35 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
             db.collection("locations")
                 .get()
                 .addOnSuccessListener { locationSnapshot ->
-                    val tempList = mutableListOf<LocationPlace>()
+                    itemList.clear()
                     for(location in locationSnapshot){
                         if(!location.getString("locationName").isNullOrEmpty()){
                             Timber.tag("SelectLocationViewModel").d(location.toObject<LocationPlace>().toString())
-                            tempList.add(location.toObject<LocationPlace>())
+                            itemList[location.toObject<LocationPlace>()] = location.id
                         }
                     }
-                    itemList.clear()
-                    itemList.addAll(tempList)
 
                     checkableLocationAdapter = CheckableLocationAdapter(itemList)
                     rvLocation.layoutManager = LinearLayoutManager(requireActivity())
                     rvLocation.adapter = checkableLocationAdapter
-                    checkableLocationAdapter.onItemClick = {location ->
-
+                    checkableLocationAdapter.onItemClick = {locationRef ->
+                        setUserCurrentLocation(locationRef)
                     }
                 }
         }
+    }
+
+    private fun setUserCurrentLocation(locationRef: String) {
+        db.collection("users")
+            .document(auth.currentUser!!.uid)
+            .set(hashMapOf(
+                "locationRef" to locationRef
+            )).addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    findNavController().popBackStack()
+                }else{
+                    requireContext().showCustomSnackBar("Faile getting new location", binding.root)
+                }
+            }
     }
 }

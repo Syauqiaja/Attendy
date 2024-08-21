@@ -55,57 +55,56 @@
                 android:minHeight="0dp"
                 android:minWidth="0dp"/>
         </LinearLayout>
-<!--        <View-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"/>-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/performance"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textAppearance="@style/AppTheme.TextAppearance.Body.S"-->
-<!--                android:textColor="?attr/colorOnPrimary"/>-->
-<!--            <FrameLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center">-->
-<!--                <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--                    style="@style/Widget.Material3.CircularProgressIndicator"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:progress="50"-->
-<!--                    app:indicatorColor="?attr/colorOnPrimary"-->
-<!--                    app:trackColor="@color/primary"-->
-<!--                    android:layout_gravity="center"/>-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="50%"-->
-<!--                    android:includeFontPadding="false"-->
-<!--                    android:textColor="?attr/colorOnPrimary"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:textAppearance="@style/AppTheme.TextAppearance.Body.XS"/>-->
-<!--            </FrameLayout>-->
-<!--        </LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/layout_empty_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_24cdp"
+            android:layout_marginStart="@dimen/_16cdp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_location_selected"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.L"
+                android:textColor="@color/white"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_select_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:text="@string/select_location"
+                android:textAppearance="@style/AppTheme.TextAppearance.Body.L.SemiBold"
+                app:icon="@drawable/ic_office"
+                app:iconTint="@color/white"
+                app:iconSize="@dimen/_24sdp"
+                app:iconPadding="@dimen/_12cdp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:paddingHorizontal="12dp"
+                android:textColor="@color/white"
+                app:cornerRadius="0dp"
+                app:strokeColor="@color/white"/>
+        </LinearLayout>
         <TextView
+            android:id="@+id/tv_location_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lapangan Sasana Krida"
+            tools:text="Lapangan Sasana Krida"
             android:textAppearance="@style/AppTheme.TextAppearance.Body.L"
             android:textColor="?attr/colorOnPrimary"
             android:layout_marginTop="@dimen/_24cdp"
             app:drawableStartCompat="@drawable/ic_office"
-            android:drawablePadding="@dimen/_4sdp" />
+            android:drawablePadding="@dimen/_4sdp"
+            android:visibility="gone"/>
         <LinearLayout
+            android:id="@+id/layout_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_8cdp">
+            android:layout_marginTop="@dimen/_8cdp"
+            android:visibility="gone">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,6 +116,7 @@
                     android:textAppearance="@style/AppTheme.TextAppearance.Body.S"
                     android:textColor="?attr/colorOnPrimary"/>
                 <TextView
+                    android:id="@+id/tv_check_in_due"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="09:00 AM"
@@ -136,6 +136,7 @@
                     android:textAppearance="@style/AppTheme.TextAppearance.Body.S"
                     android:textColor="?attr/colorOnPrimary"/>
                 <TextView
+                    android:id="@+id/tv_check_out_starts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="04:00 PM"

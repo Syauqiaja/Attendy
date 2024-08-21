@@ -55,4 +55,5 @@
     <string name="longitude_d">Longitude: %.2f</string>
     <string name="save_location">Save Location</string>
     <string name="failed_to_add_new_location">Failed to add new location</string>
+    <string name="no_location_selected">No location selected!</string>
 </resources>
