@@ -10,6 +10,12 @@ import com.hashtest.attendy.domain.models.LocationPlace
 
 class CheckableLocationAdapter(private val listItem: MutableMap<LocationPlace, String>): RecyclerView.Adapter<CheckableLocationAdapter.ViewHolder>() {
     var onItemClick: ((String)->Unit)? = null
+    fun submitData(locations: Map<LocationPlace, String>) {
+        listItem.clear()
+        listItem.putAll(locations)
+        notifyItemRangeInserted(0, listItem.size)
+    }
+
     inner class ViewHolder(private val binding: ItemLocationBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LocationPlace){
             binding.apply {

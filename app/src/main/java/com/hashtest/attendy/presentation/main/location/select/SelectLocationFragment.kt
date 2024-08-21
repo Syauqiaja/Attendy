@@ -24,7 +24,6 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
     override val viewModel: SelectLocationViewModel by viewModels()
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
-    private val itemList = mutableMapOf<LocationPlace, String>()
     private lateinit var checkableLocationAdapter: CheckableLocationAdapter
 
     override fun initView() {
@@ -34,25 +33,17 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
                     SelectLocationFragmentDirections.actionSelectLocationFragmentToCreateLocationFragment()
                 )
             }
+            checkableLocationAdapter = CheckableLocationAdapter(mutableMapOf())
 
-            db.collection("locations")
-                .get()
-                .addOnSuccessListener { locationSnapshot ->
-                    itemList.clear()
-                    for(location in locationSnapshot){
-                        if(!location.getString("locationName").isNullOrEmpty()){
-                            Timber.tag("SelectLocationViewModel").d(location.toObject<LocationPlace>().toString())
-                            itemList[location.toObject<LocationPlace>()] = location.id
-                        }
-                    }
-
-                    checkableLocationAdapter = CheckableLocationAdapter(itemList)
-                    rvLocation.layoutManager = LinearLayoutManager(requireActivity())
-                    rvLocation.adapter = checkableLocationAdapter
-                    checkableLocationAdapter.onItemClick = {locationRef ->
-                        setUserCurrentLocation(locationRef)
-                    }
+            viewModel.locations.observe(viewLifecycleOwner){locations ->
+                checkableLocationAdapter.submitData(locations)
+                rvLocation.layoutManager = LinearLayoutManager(requireActivity())
+                rvLocation.adapter = checkableLocationAdapter
+                checkableLocationAdapter.onItemClick = {locationRef ->
+                    setUserCurrentLocation(locationRef)
                 }
+            }
+            viewModel.refreshLocations()
         }
     }
 
