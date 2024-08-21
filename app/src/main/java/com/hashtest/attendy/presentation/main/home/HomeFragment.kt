@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aglotest.algolist.utils.changeStatusBarTo
 import com.aglotest.algolist.utils.clearNavigationResult
 import com.aglotest.algolist.utils.getNavigationResult
@@ -19,8 +20,10 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
+import com.google.firestore.v1.Cursor
 import com.hashtest.attendy.R
 import com.hashtest.attendy.databinding.FragmentHomeBinding
+import com.hashtest.attendy.domain.models.Attendance
 import com.hashtest.attendy.domain.models.LocationPlace
 import com.hashtest.attendy.domain.models.User
 import com.hashtest.attendy.presentation.adapters.AttendanceListAdapter
@@ -77,10 +80,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             }
             viewModel.getUserLocation()
 
+            rvAttendances.layoutManager = LinearLayoutManager(requireContext())
+            rvAttendances.setHasFixedSize(true)
             //Observe attendances
             viewModel.attendances.observe(viewLifecycleOwner){attendances ->
                 if(!attendances.isNullOrEmpty()){
-                    rvAttendances.layoutManager = LinearLayoutManager(requireContext())
                     rvAttendances.adapter = AttendanceListAdapter(attendances.toMutableList())
                 }
             }

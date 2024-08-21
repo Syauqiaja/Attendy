@@ -27,7 +27,6 @@ class HomeViewModel:ViewModel() {
     fun getAllAttendances(){
         db.collection("attendances")
             .whereEqualTo("userRef", auth.currentUser!!.uid)
-            .limit(5)
             .get()
             .addOnSuccessListener { querySnap ->
                 val listAttendance = querySnap.documents.map {

@@ -11,6 +11,11 @@ import java.util.Date
 import java.util.Locale
 
 class AttendanceListAdapter(private val listItem: MutableList<Attendance>):RecyclerView.Adapter<AttendanceListAdapter.ViewHolder>() {
+    fun addItems(newItems: List<Attendance>) {
+        val currentSize = listItem.size
+        listItem.addAll(newItems)
+        notifyItemRangeInserted(currentSize, newItems.size)
+    }
     class ViewHolder(private val binding: ItemAttendanceHistoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Attendance){
             binding.apply {

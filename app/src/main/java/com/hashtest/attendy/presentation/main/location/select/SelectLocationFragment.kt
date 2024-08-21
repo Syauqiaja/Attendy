@@ -33,12 +33,14 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
                     SelectLocationFragmentDirections.actionSelectLocationFragmentToCreateLocationFragment()
                 )
             }
+
             checkableLocationAdapter = CheckableLocationAdapter(mutableMapOf())
+            rvLocation.layoutManager = LinearLayoutManager(requireActivity())
+            rvLocation.adapter = checkableLocationAdapter
+            rvLocation.setHasFixedSize(true)
 
             viewModel.locations.observe(viewLifecycleOwner){locations ->
                 checkableLocationAdapter.submitData(locations)
-                rvLocation.layoutManager = LinearLayoutManager(requireActivity())
-                rvLocation.adapter = checkableLocationAdapter
                 checkableLocationAdapter.onItemClick = {locationRef ->
                     setUserCurrentLocation(locationRef)
                 }

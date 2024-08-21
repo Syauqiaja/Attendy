@@ -191,12 +191,12 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/see_all"
-                android:minHeight="0dp"/>
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                style="@style/Widget.Material3.Button.TextButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/see_all"-->
+<!--                android:minHeight="0dp"/>-->
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
