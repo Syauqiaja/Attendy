@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.main.location.SelectLocationFragment"
+    tools:context=".presentation.main.location.select.SelectLocationFragment"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/ic_back_arrow"
-        app:title="Select Location"
+        app:title="@string/select_location"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextAppearance="@style/AppTheme.TextAppearance.Body.XL"/>
     <TextView

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/attendanceFragment"
@@ -27,4 +30,18 @@
         android:name="com.hashtest.attendy.presentation.main.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/createLocationFragment"
+        android:name="com.hashtest.attendy.presentation.main.location.create.CreateLocationFragment"
+        android:label="fragment_create_location"
+        tools:layout="@layout/fragment_create_location" />
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.hashtest.attendy.presentation.main.location.select.SelectLocationFragment"
+        android:label="fragment_select_location"
+        tools:layout="@layout/fragment_select_location" >
+        <action
+            android:id="@+id/action_selectLocationFragment_to_createLocationFragment"
+            app:destination="@id/createLocationFragment" />
+    </fragment>
 </navigation>

@@ -8,6 +8,7 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorOnContainer">@color/primary</item>
         <item name="colorOnErrorContainer">@color/white</item>
+        <item name="colorSurfaceContainerHighest">@color/white</item>
         <item name="colorOnError">@color/state_negative_60</item>
         <item name="colorSecondary">@color/neutral_400</item>
         <item name="hintTextColor">#4D212426</item>

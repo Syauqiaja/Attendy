@@ -44,4 +44,15 @@
     <string name="check_out_starts">Check out starts:</string>
     <string name="select_location_below">Select location below</string>
     <string name="create_new">Create New</string>
+    <string name="create_location">Create Location</string>
+    <string name="location_name">Location Name</string>
+    <string name="enter_the_location_name">Enter the location name</string>
+    <string name="enter_the_location_address">Enter the location address</string>
+    <string name="address">Address</string>
+    <string name="description">Description</string>
+    <string name="describe_this_location_in_short">Describe this location in short</string>
+    <string name="latitude_d">Latitude: %.2f</string>
+    <string name="longitude_d">Longitude: %.2f</string>
+    <string name="save_location">Save Location</string>
+    <string name="failed_to_add_new_location">Failed to add new location</string>
 </resources>

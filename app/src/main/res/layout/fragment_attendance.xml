@@ -115,7 +115,7 @@
         app:text="Swipe To Punch In"
         app:outer_color="@color/primary"
         app:inner_color="@color/white"
-        app:slider_icon="@drawable/ic_check"
+        app:slider_icon="@drawable/ic_forward"
         app:icon_margin="5dp"
         app:text_appearance="@style/AppTheme.TextAppearance.Body.L.Medium.White"
         app:border_radius = "8dp"

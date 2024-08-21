@@ -35,11 +35,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
             tvName.text = auth.currentUser!!.displayName
             fabDoAttendance.setOnClickListener {
                 fabDoAttendance.scaleViewOneShot(0.95f, 75) //Add click effect
-                val dialog = BottomSheetSelectLocation()
-                dialog.show(childFragmentManager, "Select Location")
-//                findNavController().safeNavigate(
-//                    HomeFragmentDirections.actionHomeFragmentToAttendanceFragment()
-//                )
+                findNavController().safeNavigate(
+                    HomeFragmentDirections.actionHomeFragmentToAttendanceFragment()
+                )
+            }
+            btnChangeLocation.setOnClickListener {
+                findNavController().safeNavigate(
+                    HomeFragmentDirections.actionHomeFragmentToSelectLocationFragment()
+                )
             }
             btnProfile.setOnClickListener {
                 findNavController().safeNavigate(HomeFragmentDirections.actionHomeFragmentToProfileFragment())
