@@ -141,3 +141,18 @@ fun Activity.changeStatusBarToDark(){
     window.statusBarColor = Color.BLACK
     WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
 }
+
+fun timeToMinutes(time: String): Int {
+    val format = SimpleDateFormat("h:mm a", Locale.US)
+    val calendar = Calendar.getInstance()
+    calendar.time = format.parse(time) ?: return 0
+    return calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)
+}
+
+fun minutesToTime(minutes: Int): String {
+    val calendar = Calendar.getInstance()
+    calendar.set(Calendar.HOUR_OF_DAY, minutes / 60)
+    calendar.set(Calendar.MINUTE, minutes % 60)
+    val format = SimpleDateFormat("h:mm a", Locale.US)
+    return format.format(calendar.time)
+}

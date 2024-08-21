@@ -3,6 +3,7 @@ package com.hashtest.attendy.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aglotest.algolist.utils.minutesToTime
 import com.hashtest.attendy.databinding.ItemLocationBinding
 import com.hashtest.attendy.domain.models.LocationPlace
 
@@ -13,7 +14,8 @@ class CheckableLocationAdapter(private val listItem: MutableList<LocationPlace>)
                 tvLocationName.text = data.locationName
                 tvLocationAddress.text = data.locationAddress
 
-
+                tvCheckInDue.text = minutesToTime(data.openTime)
+                tvCheckOutStarts.text = minutesToTime(data.closeTime)
             }
         }
     }

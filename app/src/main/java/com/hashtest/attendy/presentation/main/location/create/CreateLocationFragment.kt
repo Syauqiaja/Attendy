@@ -20,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aglotest.algolist.utils.scaleViewOneShot
 import com.aglotest.algolist.utils.showCustomSnackBar
+import com.aglotest.algolist.utils.timeToMinutes
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -74,7 +75,9 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
                         locationAddress = edtLocationAddress.text.toString(),
                         description = edtLocationDescription.text.toString(),
                         latitude = marker!!.position.latitude,
-                        longitude = marker!!.position.longitude
+                        longitude = marker!!.position.longitude,
+                        openTime = timeToMinutes(edtCheckin.text.toString()),
+                        closeTime = timeToMinutes(edtCheckout.text.toString())
                     )
                     db.collection("locations")
                         .document()
