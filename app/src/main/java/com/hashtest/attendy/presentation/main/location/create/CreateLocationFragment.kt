@@ -50,6 +50,8 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     private lateinit var mGoogleMap : GoogleMap
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var supportMapFragment: SupportMapFragment
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationCallback : LocationCallback
 
     private val db = Firebase.firestore
 
@@ -57,6 +59,7 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     private var marker: Marker? = null
 
     override fun initView() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         supportMapFragment = childFragmentManager.findFragmentByTag("mapFragment") as SupportMapFragment
         supportMapFragment.getMapAsync(this)
         startLocationUpdates()
@@ -169,7 +172,7 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
     private fun registerLocationListener() {
         binding.progressBar.visibility = View.VISIBLE
         // initialize location callback object
-        val locationCallback = object : LocationCallback() {
+        locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 binding.progressBar.visibility = View.GONE
                 locationResult.lastLocation?.let { onLocationChanged(it) }
@@ -177,7 +180,7 @@ class CreateLocationFragment : BaseFragment<FragmentCreateLocationBinding, Creat
         }
         // 4. add permission if android version is greater then 23
         if(checkPermission()) {
-            LocationServices.getFusedLocationProviderClient(requireActivity())
+            fusedLocationProviderClient
                 .requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper())
         }
     }

@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.aglotest.algolist.utils.convertTimeMillisToTimeFormat
 import com.aglotest.algolist.utils.setNavigationResult
 import com.aglotest.algolist.utils.showCustomSnackBar
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -65,12 +66,16 @@ class AttendanceFragment : BaseFragment<FragmentAttendanceBinding, AttendanceVie
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var supportMapFragment: SupportMapFragment
     private lateinit var mLocationRequest: LocationRequest
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationCallback : LocationCallback
 
     private var userMarker: Marker? = null
     private var officeMarker: Marker? = null
 
     override fun initView() {
         binding.apply {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
             supportMapFragment = childFragmentManager.findFragmentByTag("mapsFragment") as SupportMapFragment
             supportMapFragment.getMapAsync {
                 mGoogleMap = it
@@ -159,7 +164,7 @@ class AttendanceFragment : BaseFragment<FragmentAttendanceBinding, AttendanceVie
     private fun registerLocationListener() {
         binding.progressBar.visibility = View.VISIBLE
         // initialize location callback object
-        val locationCallback = object : LocationCallback() {
+         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 binding.progressBar.visibility = View.GONE
                 locationResult.lastLocation?.let { onLocationChanged(it) }
@@ -167,8 +172,7 @@ class AttendanceFragment : BaseFragment<FragmentAttendanceBinding, AttendanceVie
         }
         // 4. add permission if android version is greater then 23
         if(checkPermission()) {
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-                .requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper())
+            fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper())
         }
     }
 
@@ -293,5 +297,10 @@ class AttendanceFragment : BaseFragment<FragmentAttendanceBinding, AttendanceVie
                 view.setCompleted(false, false)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 }
