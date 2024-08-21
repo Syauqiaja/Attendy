@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aglotest.algolist.utils.changeStatusBarTo
+import com.aglotest.algolist.utils.changeStatusBarToLight
 import com.aglotest.algolist.utils.clearNavigationResult
 import com.aglotest.algolist.utils.getNavigationResult
 import com.aglotest.algolist.utils.minutesToTime
@@ -116,5 +117,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
         binding.layoutEmptyLocation.visibility = View.VISIBLE
         binding.tvLocationName.visibility = View.GONE
         binding.layoutLocation.visibility = View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().changeStatusBarToLight()
     }
 }
