@@ -108,6 +108,12 @@ dependencies {
     implementation("com.google.android.libraries.places:places:3.5.0")
     implementation("com.google.firebase:firebase-firestore")
 
+
+//    DataStore
+    val preferenceVersion = "1.1.1"
+    implementation("androidx.datastore:datastore-preferences:$preferenceVersion")
+    implementation("androidx.datastore:datastore-core:$preferenceVersion")
+
 }
 
 secrets {

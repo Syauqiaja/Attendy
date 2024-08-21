@@ -15,18 +15,22 @@ import androidx.navigation.fragment.findNavController
 import com.aglotest.algolist.utils.safeNavigate
 import com.aglotest.algolist.utils.showCustomSnackBar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
+import com.google.firebase.firestore.firestore
 import com.hashtest.attendy.R
+import com.hashtest.attendy.core.Resources
 import com.hashtest.attendy.databinding.FragmentRegisterBinding
 import com.hashtest.attendy.presentation.base.BaseFragment
 import com.hashtest.attendy.presentation.main.MainActivity
+import timber.log.Timber
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel>(
     FragmentRegisterBinding::inflate
 ) {
     override val viewModel: RegisterViewModel by viewModels()
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun initView() {
         binding.apply {
@@ -37,7 +41,27 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
 
             btnRegister.setOnClickListener {
                 if(validateForms()){
-                    createAuthUser()
+                    viewModel.createAuthUser(
+                        name = edtName.text.toString(),
+                        email = edtEmail.text.toString(),
+                        password = edtPassword.text.toString()
+                    ).observe(viewLifecycleOwner){response ->
+                        when(response){
+                            is Resources.Error -> {
+                                showLoading(false)
+                                requireContext().showCustomSnackBar("Failed to register user", root)
+                            }
+                            is Resources.Loading -> {
+                                showLoading(true)
+                            }
+                            is Resources.Success -> {
+                                showLoading(false)
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                requireActivity().startActivity(intent)
+                                requireActivity().finish()
+                            }
+                        }
+                    }
                 }
             }
             btnLogin.setOnClickListener {
@@ -46,27 +70,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
         }
     }
 
-    private fun createAuthUser() {
-        auth.createUserWithEmailAndPassword(binding.edtEmail.text.toString(), binding.edtPassword.text.toString()).addOnCompleteListener {registerResult ->
-            if(registerResult.isSuccessful){
-                val profileUpdates = userProfileChangeRequest {
-                    displayName = binding.edtName.text.toString()
-                }
-                auth.currentUser!!.updateProfile(profileUpdates)
-                    .addOnCompleteListener { task ->
-                        if(task.isSuccessful){
-                            val intent = Intent(requireActivity(), MainActivity::class.java)
-                            requireActivity().startActivity(intent)
-                            requireActivity().finish()
-                        }else{
-                            registerResult.result.user!!.delete()
-                            auth.signOut()
-                            requireContext().showCustomSnackBar(task.exception?.message ?: "Failed to register", binding.root)
-                        }
-                    }
-            }else{
-                requireContext().showCustomSnackBar(registerResult.exception?.message ?: "Failed to register", binding.root)
-            }
+    private fun showLoading(toggle: Boolean){
+        binding.apply {
+            btnRegister.text = if(toggle) "" else getString(R.string.register)
+            btnRegister.isEnabled = !toggle
+            progressBar.visibility = if(toggle) View.VISIBLE else View.GONE
         }
     }
 

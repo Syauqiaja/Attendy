@@ -48,6 +48,9 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding, Selec
                     checkableLocationAdapter = CheckableLocationAdapter(itemList)
                     rvLocation.layoutManager = LinearLayoutManager(requireActivity())
                     rvLocation.adapter = checkableLocationAdapter
+                    checkableLocationAdapter.onItemClick = {location ->
+
+                    }
                 }
         }
     }

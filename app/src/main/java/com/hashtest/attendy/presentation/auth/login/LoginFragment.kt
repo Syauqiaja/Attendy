@@ -60,8 +60,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
 
     private fun loginFirebase() {
         binding.apply {
+            showLoading(true)
             auth.signInWithEmailAndPassword(edtEmail.text.toString(), edtPassword.text.toString())
                 .addOnCompleteListener { task ->
+                    showLoading(false)
                     if(task.isSuccessful){
                         val intent = Intent(requireActivity(), MainActivity::class.java)
                         requireActivity().startActivity(intent)
@@ -70,6 +72,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                         requireContext().showCustomSnackBar(task.exception?.message ?: "Failed to login", root)
                     }
                 }
+        }
+    }
+
+    private fun showLoading(toggle: Boolean){
+        binding.apply {
+            btnLogin.text = if(toggle) "" else  getString(R.string.login)
+            btnLogin.isEnabled = !toggle
+            progressBar.visibility = if(toggle) View.VISIBLE else View.GONE
         }
     }
 
